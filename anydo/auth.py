@@ -1,21 +1,21 @@
 import requests
+import settings
 
-"""
-TODO: Handle Exceptions
-"""
-class AuthBase(object):
-    def __init__(self, auth_url=None, auth_args=None):
-	self.auth_session = requests.session()
-	self.auth_result = AuthBase.requestAuthSessionPost(self, auth_url, auth_args)
 
-    def getAuthSession(self):
-	return self.auth_session
+class AnyDoSession(object):
+    """Authenticates with Any.Do"""
+    def __init__(self, username=None, password=None):
+        self.session = requests.session()
+        AnyDoSession.post(self,
+                          url='https://sm-prod.any.do/j_spring_security_check',
+                          data={'j_username': username, 'j_password': password,
+                                '_spring_security_remember_me': 'on'},
+                          headers={'content-type':
+                                   'application/x-www-form-urlencoded'}
+                          )
 
-    def getAuthResult(self):
-	return self.auth_result
+    def get(self, url, **kwargs):
+        return self.session.get(url, proxies=settings.proxies, **kwargs)
 
-    def requestAuthSessionGet(self, url):
-	return self.auth_session.get(url)
-
-    def requestAuthSessionPost(self, url, data):
-	return self.auth_session.post(url, data)
+    def post(self, url, data=None, **kwargs):
+        return self.session.post(url, data, proxies=settings.proxies, **kwargs)

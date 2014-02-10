@@ -1,10 +1,13 @@
 import auth
+from bind import bind_method
 
-class AnyDoAPI(auth.AuthBase):
-    auth_url = "https://sm-prod.any.do/j_spring_security_check"
-    def __init__(self, username, password, sec_rem="on"):
-	self.auth_args = dict()
-	self.auth_args['j_username'] = username
-	self.auth_args['j_password'] = password
-	self.auth_args['_spring_security_remember_me'] = sec_rem
-        super(AnyDoAPI, self).__init__(AnyDoAPI.auth_url, self.auth_args)
+
+class AnyDoAPI(auth.AnyDoSession):
+    host = "https://sm-prod.any.do"
+
+    def __init__(self, username, password):
+        super(AnyDoAPI, self).__init__(username=username,
+                                       password=password)
+
+    user_info = bind_method(path="/me",
+                            method="GET")
