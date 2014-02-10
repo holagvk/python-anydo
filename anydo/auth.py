@@ -15,7 +15,7 @@ class AnyDoSession(object):
                           )
 
     def get(self, url, **kwargs):
-        return self.session.get(url, proxies=settings.proxies, **kwargs)
+        return self.session.get(url, proxies=settings.PROXIES, **kwargs)
 
     def post(self, url, data=None, **kwargs):
-        return self.session.post(url, data, proxies=settings.proxies, **kwargs)
+        return self.session.post(url, data, proxies=settings.PROXIES, **kwargs)
