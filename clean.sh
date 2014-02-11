@@ -1,7 +1,9 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
+
+cd $(git rev-parse --show-toplevel)
 
 #python
-find . -name "*.pyc" -exec rm -rf {} \;
+find . -name "*.pyc" -delete
 
 #linux
-find . -name "*~" -exec rm -rf {} \;
+find . -name "*~" -delete
