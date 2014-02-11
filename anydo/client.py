@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import auth
 from bind import bind_method
 

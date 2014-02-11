@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 def bind_method(**config):
     class AnyDoAPIMethod(object):
         path = config['path']
