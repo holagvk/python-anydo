@@ -17,7 +17,8 @@ class AnyDoAPITests(unittest.TestCase):
                                 password=settings.PASSWORD)
 
     def test_user_info(self):
-        self.api.user_info()
+        r = self.api.user_info()
+        self.assertEqual(r.status_code, 200)
 
 if __name__ == '__main__':
     unittest.main()

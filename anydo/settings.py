@@ -1,3 +1,3 @@
 PROXIES = None
-USERNAME = "username"
+USERNAME = "username@example.org"
 PASSWORD = "password"
