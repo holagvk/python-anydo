@@ -12,4 +12,5 @@ setup(name="python-anydo",
       url="https://github.com/gvkalra/python-anydo",
       packages = find_packages(),
       keywords= "anydo",
+      test_suite='anydo_tests',
       zip_safe = True)
