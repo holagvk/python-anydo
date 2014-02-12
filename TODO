@@ -3,3 +3,7 @@
     at present it is necessary to provide all the arguments
 
 2. Any.Do mixes tasks and notes into single GET response. Should we separate tasks from notes ?
+
+3. Simplify bind_method
+
+4. Write more tests

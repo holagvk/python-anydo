@@ -37,3 +37,11 @@ class AnyDoAPI(auth.AnyDoSession):
                                                  "includeDone"
                                                  ]
                              )
+
+    """
+    Fetches task/note by UUID
+    """
+    task = bind_method(path="/me/tasks/{uuid}",
+                       method="GET",
+                       accepts_parameters=["uuid"]
+                       )

@@ -36,5 +36,14 @@ class AnyDoAPITests(unittest.TestCase):
                                 includeDone="false")
         self.assertEqual(r.status_code, 200)
 
+    def test_task(self):
+        tasks = self.api.tasks(responseType="flat",
+                               includeDeleted="false",
+                               includeDone="false")
+        if tasks.status_code == 200 and tasks.json():
+            task_id = tasks.json()[0].get("id")
+            r = self.api.task(uuid=task_id)
+            self.assertEqual(r.status_code, 200)
+
 if __name__ == '__main__':
     unittest.main()

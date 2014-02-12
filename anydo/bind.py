@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from utils import encode_string
 from error import AnyDoClientError
+import re
+path_template = re.compile("{\w+}")  # #To support {variable} in paths
 
 
 def bind_method(**config):
@@ -13,6 +15,7 @@ def bind_method(**config):
             self.api = api
             self.parameters = {}
             self._build_parameters(*args, **kwargs)
+            self._build_path()
 
         def _build_parameters(self, *args, **kwargs):
             for index, value in enumerate(args):
@@ -35,6 +38,18 @@ def bind_method(**config):
                     )
 
                 self.parameters[key] = encode_string(value)
+
+        def _build_path(self):
+            for var in path_template.findall(self.path):
+                name = var.strip("{}")
+
+                try:
+                    value = self.parameters[name]
+                except KeyError:
+                    raise AnyDoClientError("Could not find %s" % name)
+                del self.parameters[name]  # #Python won my heart!
+
+                self.path = self.path.replace(var, value)
 
         def execute(self):
             if self.method == 'GET':
