@@ -10,5 +10,30 @@ class AnyDoAPI(auth.AnyDoSession):
         super(AnyDoAPI, self).__init__(username=username,
                                        password=password)
 
+    """
+    Fetches user information
+    """
     user_info = bind_method(path="/me",
                             method="GET")
+
+    """
+    Fetches tasks (including notes)
+    """
+    tasks = bind_method(path="/me/tasks",
+                        method="GET",
+                        accepts_parameters=["responseType",
+                                            "includeDeleted",
+                                            "includeDone"
+                                            ]
+                        )
+
+    """
+    Fetches categories
+    """
+    categories = bind_method(path="/me/categories",
+                             method="GET",
+                             accepts_parameters=["responseType",
+                                                 "includeDeleted",
+                                                 "includeDone"
+                                                 ]
+                             )
