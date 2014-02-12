@@ -10,5 +10,18 @@ class AnyDoAPI(auth.AnyDoSession):
         super(AnyDoAPI, self).__init__(username=username,
                                        password=password)
 
-    user_info = bind_method(path="/me",
+    get_user_info = bind_method(path="/me",
+                                method="GET")
+
+    get_tasks = bind_method(path="/me/tasks",
                             method="GET")
+
+    get_task = bind_method(path="/me/tasks",
+                           method="GET")
+
+    get_categories = bind_method(path="/me/categories",
+                                 method="GET")
+
+    # this api returns status code only.
+    get_category = bind_method(path="/me/categories",
+                               method="GET")
