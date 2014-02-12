@@ -1,0 +1,5 @@
+1. Work out approach to support default arguments in APIs:
+    e.g. api.tasks() should work with responseType=flat, includeDeleted=false and includeDone=false
+    at present it is necessary to provide all the arguments
+
+2. Any.Do mixes tasks and notes into single GET response. Should we separate tasks from notes ?
