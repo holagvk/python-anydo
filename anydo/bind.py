@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 def bind_method(**config):
     class AnyDoAPIMethod(object):
         path = config['path']
@@ -8,7 +9,9 @@ def bind_method(**config):
             self.parameters = {}
 
         def execute(self):
-            pass
+            if self.method == 'GET':
+                return self.api.get(self.api.host + self.path)
+
 
     def _call(api, *args, **kwargs):
         method = AnyDoAPIMethod(api, *args, **kwargs)
