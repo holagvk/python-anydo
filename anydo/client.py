@@ -52,3 +52,10 @@ class AnyDoAPI(auth.AnyDoSession):
     delete_task = bind_method(path="/me/tasks/{uuid}",
                               method="DELETE",
                               accepts_parameters=["uuid"])
+
+    """
+    Deletes a category by UUID
+    """
+    delete_category = bind_method(path="/me/categories/{uuid}",
+                                  method="DELETE",
+                                  accepts_parameters=["uuid"])

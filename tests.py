@@ -54,5 +54,14 @@ class AnyDoAPITests(unittest.TestCase):
             r = self.api.delete_task(uuid=task_id)
             self.assertEqual(r.status_code, 204)
 
+    def test_delete_category(self):
+        categories = self.api.categories(responseType="flat",
+                                         includeDeleted="false",
+                                         includeDone="false")
+        if categories.status_code == 200 and categories.json():
+            category_id = categories.json()[0].get("id")
+            r = self.api.delete_category(uuid=category_id)
+            self.assertEqual(r.status_code, 204)
+
 if __name__ == '__main__':
     unittest.main()
