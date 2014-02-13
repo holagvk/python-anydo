@@ -2,7 +2,7 @@
 import unittest
 import sys
 import os.path
-sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from anydo.client import AnyDoAPI
 from anydo import settings
 
