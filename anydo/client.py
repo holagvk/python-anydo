@@ -45,3 +45,10 @@ class AnyDoAPI(auth.AnyDoSession):
                        method="GET",
                        accepts_parameters=["uuid"]
                        )
+
+    """
+    Deletes a task/note by UUID
+    """
+    delete_task = bind_method(path="/me/tasks/{uuid}",
+                              method="DELETE",
+                              accepts_parameters=["uuid"])

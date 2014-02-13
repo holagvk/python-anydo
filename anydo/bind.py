@@ -55,6 +55,8 @@ def bind_method(**config):
             if self.method == 'GET':
                 return self.api.get(self.api.host + self.path,
                                     params=self.parameters)
+            if self.method == 'DELETE':
+                return self.api.delete(self.api.host + self.path)
 
     def _call(api, *args, **kwargs):
         method = AnyDoAPIMethod(api, *args, **kwargs)

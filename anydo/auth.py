@@ -20,3 +20,6 @@ class AnyDoSession(object):
 
     def post(self, url, data=None, **kwargs):
         return self.session.post(url, data, proxies=settings.PROXIES, **kwargs)
+
+    def delete(self, url, **kwargs):
+        return self.session.delete(url, proxies=settings.PROXIES, **kwargs)
