@@ -2,6 +2,7 @@
 import unittest
 from anydo.client import AnyDoAPI
 from anydo import settings
+from anydo import utils
 
 
 class TestAnyDoAPI(AnyDoAPI):
@@ -62,6 +63,14 @@ class AnyDoAPITests(unittest.TestCase):
             category_id = categories.json()[0].get("id")
             r = self.api.delete_category(uuid=category_id)
             self.assertEqual(r.status_code, 204)
+
+    def test_create_category(self):
+        id = utils.create_uuid()
+        r = self.api.create_category(name="TEST_TASK",
+                                     default=False,
+                                     isDefault=False,
+                                     id=id)
+        self.assertEqual(r.status_code, 203)
 
 if __name__ == '__main__':
     unittest.main()

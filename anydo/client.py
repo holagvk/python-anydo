@@ -59,3 +59,13 @@ class AnyDoAPI(auth.AnyDoSession):
     delete_category = bind_method(path="/me/categories/{uuid}",
                                   method="DELETE",
                                   accepts_parameters=["uuid"])
+
+    """
+    Creates a new category
+    """
+    create_category = bind_method(path="/me/categories",
+                                  method="POST",
+                                  accepts_parameters=["name",
+                                                      "default",
+                                                      "isDefault",
+                                                      "id"])
