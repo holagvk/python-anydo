@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
+from mock import patch
 import sys
 import os.path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -23,20 +24,29 @@ class AnyDoAPITests(unittest.TestCase):
                                               password=settings.PASSWORD)
             self.__class__.setup_done = True
 
-    def test_user_info(self):
+    @patch('requests.adapters.HTTPAdapter.send')
+    def test_user_info(self, m):
         r = self.api.user_info()
+        r.status_code = 200
+        m.return_value = r
         self.assertEqual(r.status_code, 200)
 
-    def test_tasks(self):
+    @patch('requests.adapters.HTTPAdapter.send')
+    def test_tasks(self, m):
         r = self.api.tasks(responseType="flat",
                            includeDeleted="false",
                            includeDone="false")
+        r.status_code = 200
+        m.return_value = r
         self.assertEqual(r.status_code, 200)
 
-    def test_categories(self):
+    @patch('requests.adapters.HTTPAdapter.send')
+    def test_categories(self, m):
         r = self.api.categories(responseType="flat",
                                 includeDeleted="false",
                                 includeDone="false")
+        r.status_code = 200
+        m.return_value = r
         self.assertEqual(r.status_code, 200)
 
     def test_task(self):
