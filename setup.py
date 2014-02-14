@@ -12,6 +12,6 @@ setup(name="python-anydo",
       url="https://github.com/gvkalra/python-anydo",
       packages=find_packages(),
       keywords="anydo",
-      test_suite='anydo_tests',
+      test_suite='anydo.tests',
       tests_require=['pep8', 'mock'],
       zip_safe=True)
