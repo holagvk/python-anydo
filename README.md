@@ -4,11 +4,12 @@ python-anydo
 Unofficial python bindings for Any.Do
 
 
-Prepare commit after fork
--------------------------
+Preparing commit before sending pull request
+--------------------------------------------
 
-You should copy anydo/tests/runtest.sh as pre-commit git-hook.
+You should add bin/runtest.sh as pre-commit git-hook.
+It will help you in verifying your changes locally.
 
 	$ git clone https://github.com/gvkalra/python-anydo.git
 	$ cd python-anydo
-	$ cp anydo/tests/runtest.sh .git/hooks/pre-commit
+	$ cp bin/runtest.sh .git/hooks/pre-commit
