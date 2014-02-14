@@ -13,4 +13,5 @@ setup(name="python-anydo",
       packages=find_packages(),
       keywords="anydo",
       test_suite='anydo_tests',
+      tests_require=['pep8', 'mock'],
       zip_safe=True)
