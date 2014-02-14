@@ -58,8 +58,9 @@ def bind_method(**config):
             if self.method == 'DELETE':
                 return self.api.delete(self.api.host + self.path)
 
-    def _call(api, *args, **kwargs):
-        method = AnyDoAPIMethod(api, *args, **kwargs)
+    def _call(self, *args, **kwargs):
+        #self=AnyDoAPI(); satisfy pychecker
+        method = AnyDoAPIMethod(self, *args, **kwargs)
         return method.execute()
 
     return _call
