@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
+import sys
 
 
 def encode_string(value):
-    return value.encode('utf-8') \
-        if isinstance(value, unicode) else str(value)
+    if sys.version_info < (3, 0):
+        return value.encode('utf-8') \
+            if isinstance(value, unicode) else str(value)
+    else:
+        return value

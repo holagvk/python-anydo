@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import auth
-from bind import bind_method
+from anydo import auth
+from anydo.bind import bind_method
 
 
 class AnyDoAPI(auth.AnyDoSession):
