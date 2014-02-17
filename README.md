@@ -13,11 +13,11 @@ Developing python-anydo
 --------------------------------------------
 You should add bin/runtest.sh as pre-commit git-hook.
 It will help you in verifying your changes locally.
-
-	$ git clone https://github.com/gvkalra/python-anydo.git
-	$ cd python-anydo
-	$ cp bin/runtest.sh .git/hooks/pre-commit
-
+````bash
+$ git clone https://github.com/gvkalra/python-anydo.git
+$ cd python-anydo
+$ cp bin/runtest.sh .git/hooks/pre-commit
+````
 
 License
 -----------------
