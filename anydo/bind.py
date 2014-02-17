@@ -62,7 +62,8 @@ def bind_method(**config):
                 data = []
                 data.append(self.parameters)
                 return self.api.post(self.api.host + self.path,
-                                     data=str(json.dumps([item for item in data])),
+                                     data=str(json.dumps([item
+                                                          for item in data])),
                                      headers={'Content-Type':
                                               'application/json'}
                                      )
