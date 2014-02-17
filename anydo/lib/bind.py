@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-from anydo.utils import encode_string
-from anydo.error import AnyDoClientError
+from anydo.lib.utils import encode_string
+from anydo.lib.error import AnyDoClientError
 import re
 import json
 path_template = re.compile("{\w+}")  # #To support {variable} in paths
 
 
 def bind_method(**config):
-    class AnyDoAPIMethod(object):
+    class AnyDoClientMethod(object):
         path = config['path']
         method = config['method']
         accepts_parameters = config.get("accepts_parameters", [])
@@ -69,8 +69,8 @@ def bind_method(**config):
                                      )
 
     def _call(self, *args, **kwargs):
-        #self=AnyDoAPI(); satisfy pychecker
-        method = AnyDoAPIMethod(self, *args, **kwargs)
+        #self=AnyDoClient(); satisfy pychecker
+        method = AnyDoClientMethod(self, *args, **kwargs)
         return method.execute()
 
     return _call

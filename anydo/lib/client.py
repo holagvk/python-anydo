@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-from anydo import auth
-from anydo.bind import bind_method
+from anydo.lib import auth
+from anydo.lib.bind import bind_method
 
 
-class AnyDoAPI(auth.AnyDoSession):
+class AnyDoClient(auth.AnyDoSession):
     host = "https://sm-prod.any.do"
 
     def __init__(self, username, password):
-        super(AnyDoAPI, self).__init__(username=username,
-                                       password=password)
+        super(AnyDoClient, self).__init__(username=username,
+                                          password=password)
 
     """
     Fetches user information
