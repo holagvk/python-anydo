@@ -6,6 +6,7 @@ import os.path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from anydo.client import AnyDoAPI
 from anydo import settings
+from anydo import utils
 
 
 class TestAnyDoAPI(AnyDoAPI):
@@ -75,6 +76,15 @@ class AnyDoAPITests(unittest.TestCase):
             category_id = categories.json()[0].get("id")
             r = self.api.delete_category(uuid=category_id)
             self.assertEqual(r.status_code, 204)
+
+    def test_create_category(self):
+        id = utils.create_uuid()
+        r = self.api.create_category(name="ANY.DO_TEST_CATEGORY",
+                                     default="false",
+                                     isDefault="false",
+                                     listPosition="null",
+                                     id=id)
+        self.assertEqual(r.status_code, 201)
 
 if __name__ == '__main__':
     unittest.main()

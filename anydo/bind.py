@@ -2,6 +2,7 @@
 from anydo.utils import encode_string
 from anydo.error import AnyDoClientError
 import re
+import json
 path_template = re.compile("{\w+}")  # #To support {variable} in paths
 
 
@@ -57,6 +58,14 @@ def bind_method(**config):
                                     params=self.parameters)
             if self.method == 'DELETE':
                 return self.api.delete(self.api.host + self.path)
+            if self.method == 'POST':
+                data = []
+                data.append(self.parameters)
+                return self.api.post(self.api.host + self.path,
+                                     data=str(json.dumps([item for item in data])),
+                                     headers={'Content-Type':
+                                              'application/json'}
+                                     )
 
     def _call(self, *args, **kwargs):
         #self=AnyDoAPI(); satisfy pychecker
