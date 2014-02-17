@@ -66,11 +66,12 @@ class AnyDoAPITests(unittest.TestCase):
 
     def test_create_category(self):
         id = utils.create_uuid()
-        r = self.api.create_category(name="TEST_TASK",
-                                     default=False,
-                                     isDefault=False,
+        r = self.api.create_category(name="ANY.DO_TEST_CATEGORY",
+                                     default="false",
+                                     isDefault="false",
+                                     listPosition="null",
                                      id=id)
-        self.assertEqual(r.status_code, 203)
+        self.assertEqual(r.status_code, 201)
 
 if __name__ == '__main__':
     unittest.main()

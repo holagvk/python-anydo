@@ -68,4 +68,5 @@ class AnyDoAPI(auth.AnyDoSession):
                                   accepts_parameters=["name",
                                                       "default",
                                                       "isDefault",
+                                                      "listPosition",
                                                       "id"])

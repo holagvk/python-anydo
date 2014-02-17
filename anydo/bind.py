@@ -60,9 +60,9 @@ def bind_method(**config):
                 return self.api.delete(self.api.host + self.path)
             if self.method == 'POST':
                 data = []
-                data.append(json.dumps(self.parameters))
+                data.append(self.parameters)
                 return self.api.post(self.api.host + self.path,
-                                     data=str(data),
+                                     data=str(json.dumps([item for item in data])),
                                      headers={'Content-Type':
                                               'application/json'}
                                      )
