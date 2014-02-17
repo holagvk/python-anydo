@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from utils import encode_string
-from error import AnyDoClientError
+from anydo.utils import encode_string
+from anydo.error import AnyDoClientError
 import re
 path_template = re.compile("{\w+}")  # #To support {variable} in paths
 
@@ -28,7 +28,7 @@ def bind_method(**config):
                 except IndexError:
                     raise AnyDoClientError("Index Overflow")
 
-            for key, value in kwargs.iteritems():
+            for key, value in kwargs.items():
                 if value is None:
                     continue
 
