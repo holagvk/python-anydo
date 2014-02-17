@@ -1,11 +1,17 @@
-1. Work out approach to support default arguments in APIs:
-    e.g. api.tasks() should work with responseType=flat, includeDeleted=false and includeDone=false
-    at present it is necessary to provide all the arguments
+1. Work out approach to support default arguments in APIs (wrapper class for AnyDoAPI ?):
+    Example: api.tasks() should assume responseType=flat, includeDeleted=false and includeDone=false.
+    At present it is necessary to provide all the arguments by API user.
+    This should be changed since Any.Do interface is not mature.
+Priority => Urgent
 
 2. Any.Do mixes tasks and notes into single GET response. Should we separate tasks from notes ?
+Priority => Normal
 
 3. Simplify bind_method
+Priority => Low
 
 4. Write more tests
+Priority => Normal
 
 5. Support Facebook login 
+Priority => Low
