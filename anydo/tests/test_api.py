@@ -109,5 +109,46 @@ class AnyDoAPITests(unittest.TestCase):
                                      id=task_id)
             self.assertEqual(r.status_code, 200)
 
+    def test_create_note(self):
+        # Fetch available categories
+        categories = self.api.categories(responseType="flat",
+                                         includeDeleted="false",
+                                         includeDone="false")
+        if categories.status_code == 200 and categories.json():
+            category_id = categories.json()[0].get("id")
+            task_id = utils.create_uuid()
+            # Create task
+            new_task = self.api.create_task(title="ANY.DO.TEST_TASK_NOTE",
+                                            listPositionByCategory=0,
+                                            listPositionByPriority=0,
+                                            listPositionByDueDate=0,
+                                            status="UNCHECKED",
+                                            repeatingMethod="TASK_REPEAT_OFF",
+                                            shared="false",
+                                            priority="Normal",
+                                            creationDate=str(int(time.time())),
+                                            taskExpanded="false",
+                                            categoryID=str(category_id),
+                                            dueDate=None,
+                                            id=task_id)
+            if new_task.status_code == 200 and new_task.json():
+                note_id = utils.create_uuid()
+                # Add note in task
+                r = self.api.create_task(title="ANY.DO_TEST_NOTE",
+                                         listPositionByCategory=0,
+                                         listPositionByPriority=0,
+                                         listPositionByDueDate=0,
+                                         status="UNCHECKED",
+                                         repeatingMethod="TASK_REPEAT_OFF",
+                                         shared="false",
+                                         priority="Normal",
+                                         creationDate=str(int(time.time())),
+                                         taskExpanded="false",
+                                         parentGlobalTaskId=task_id,
+                                         categoryID=str(category_id),
+                                         dueDate=None,
+                                         id=note_id)
+                self.assertEqual(r.status_code, 200)
+
 if __name__ == '__main__':
     unittest.main()

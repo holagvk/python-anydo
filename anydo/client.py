@@ -72,7 +72,7 @@ class AnyDoAPI(auth.AnyDoSession):
                                                       "id"])
 
     """
-    Creates a new task
+    Creates a new task/note
     """
     create_task = bind_method(path="/me/tasks",
                               method="POST",
@@ -86,6 +86,7 @@ class AnyDoAPI(auth.AnyDoSession):
                                                   "priority",
                                                   "creationDate",
                                                   "taskExpanded",
+                                                  "parentGlobalTaskId",
                                                   "categoryID",
                                                   "dueDate",
                                                   "id"])
