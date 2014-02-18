@@ -2,6 +2,7 @@
 import unittest
 from mock import patch
 import sys
+import time
 import os.path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from anydo.client import AnyDoAPI
@@ -85,6 +86,28 @@ class AnyDoAPITests(unittest.TestCase):
                                      listPosition="null",
                                      id=id)
         self.assertEqual(r.status_code, 201)
+
+    def test_create_task(self):
+        categories = self.api.categories(responseType="flat",
+                                         includeDeleted="false",
+                                         includeDone="false")
+        if categories.status_code == 200 and categories.json():
+            category_id = categories.json()[0].get("id")
+            task_id = utils.create_uuid()
+            r = self.api.create_task(title="ANY.DO_TEST_TASK",
+                                     listPositionByCategory=0,
+                                     listPositionByPriority=0,
+                                     listPositionByDueDate=0,
+                                     status="UNCHECKED",
+                                     repeatingMethod="TASK_REPEAT_OFF",
+                                     shared="false",
+                                     priority="Normal",
+                                     creationDate=str(int(time.time())),
+                                     taskExpanded="false",
+                                     categoryID=str(category_id),
+                                     dueDate=None,
+                                     id=task_id)
+            self.assertEqual(r.status_code, 200)
 
 if __name__ == '__main__':
     unittest.main()

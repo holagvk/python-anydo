@@ -70,3 +70,22 @@ class AnyDoAPI(auth.AnyDoSession):
                                                       "isDefault",
                                                       "listPosition",
                                                       "id"])
+
+    """
+    Creates a new task
+    """
+    create_task = bind_method(path="/me/tasks",
+                              method="POST",
+                              accepts_parameters=["title",
+                                                  "listPositionByCategory",
+                                                  "listPositionByPriority",
+                                                  "listPositionByDueDate",
+                                                  "status",
+                                                  "repeatingMethod",
+                                                  "shared",
+                                                  "priority",
+                                                  "creationDate",
+                                                  "taskExpanded",
+                                                  "categoryID",
+                                                  "dueDate",
+                                                  "id"])
