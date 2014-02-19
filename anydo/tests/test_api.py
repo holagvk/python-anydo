@@ -78,13 +78,16 @@ class AnyDoAPITests(unittest.TestCase):
             r = self.api.delete_category(uuid=category_id)
             self.assertEqual(r.status_code, 204)
 
-    def test_create_category(self):
+    @patch('requests.adapters.HTTPAdapter.send')
+    def test_create_category(self, m):
         id = utils.create_uuid()
         r = self.api.create_category(name="ANY.DO_TEST_CATEGORY",
                                      default="false",
                                      isDefault="false",
                                      listPosition="null",
                                      id=id)
+        r.status_code = 201
+        m.return_value = r
         self.assertEqual(r.status_code, 201)
 
     def test_create_task(self):
