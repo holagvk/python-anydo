@@ -3,6 +3,7 @@ python-anydo
 
 Unofficial python bindings for Any.Do
 
+[![Build Status](https://travis-ci.org/gvkalra/python-anydo.png?branch=master)](https://travis-ci.org/gvkalra/python-anydo)
 
 Usage Guide
 -----------------
