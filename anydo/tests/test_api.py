@@ -5,9 +5,9 @@ import sys
 import time
 import os.path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from anydo.client import AnyDoAPI
-from anydo import settings
-from anydo import utils
+from anydo.api import AnyDoAPI
+from anydo.lib import settings
+from anydo.lib import utils
 
 
 class TestAnyDoAPI(AnyDoAPI):
@@ -27,52 +27,50 @@ class AnyDoAPITests(unittest.TestCase):
             self.__class__.setup_done = True
 
     @patch('requests.adapters.HTTPAdapter.send')
-    def test_user_info(self, m):
-        r = self.api.user_info()
+    def test_get_user_info(self, m):
+        r = self.api.get_user_info()
         r.status_code = 200
         m.return_value = r
         self.assertEqual(r.status_code, 200)
 
     @patch('requests.adapters.HTTPAdapter.send')
-    def test_tasks(self, m):
-        r = self.api.tasks(responseType="flat",
-                           includeDeleted="false",
-                           includeDone="false")
+    def test_get_all_tasks(self, m):
+        r = self.api.get_all_tasks(include_delete="false",
+                                   include_done="false")
         r.status_code = 200
         m.return_value = r
         self.assertEqual(r.status_code, 200)
 
     @patch('requests.adapters.HTTPAdapter.send')
-    def test_categories(self, m):
-        r = self.api.categories(responseType="flat",
-                                includeDeleted="false",
-                                includeDone="false")
+    def test_get_all_categories(self, m):
+        r = self.api.get_all_categories(include_delete="false",
+                                        include_done="false")
         r.status_code = 200
         m.return_value = r
         self.assertEqual(r.status_code, 200)
 
-    def test_task(self):
-        tasks = self.api.tasks(responseType="flat",
-                               includeDeleted="false",
-                               includeDone="false")
+    @patch('requests.adapters.HTTPAdapter.send')
+    def test_get_all_task(self, m):
+        tasks = self.api.get_all_tasks(include_delete="false",
+                                       include_done="false")
         if tasks.status_code == 200 and tasks.json():
             task_id = tasks.json()[0].get("id")
             r = self.api.task(uuid=task_id)
             self.assertEqual(r.status_code, 200)
 
-    def test_delete_task(self):
-        tasks = self.api.tasks(responseType="flat",
-                               includeDeleted="false",
-                               includeDone="false")
+    @patch('requests.adapters.HTTPAdapter.send')
+    def test_delete_task(self, m):
+        tasks = self.api.get_all_tasks(include_delete="false",
+                                       include_done="false")
         if tasks.status_code == 200 and tasks.json():
             task_id = tasks.json()[0].get("id")
             r = self.api.delete_task(uuid=task_id)
             self.assertEqual(r.status_code, 204)
 
-    def test_delete_category(self):
-        categories = self.api.categories(responseType="flat",
-                                         includeDeleted="false",
-                                         includeDone="false")
+    @patch('requests.adapters.HTTPAdapter.send')
+    def test_delete_category(self, m):
+        categories = self.api.get_all_categories(include_delete="false",
+                                                 include_done="false")
         if categories.status_code == 200 and categories.json():
             category_id = categories.json()[0].get("id")
             r = self.api.delete_category(uuid=category_id)
@@ -81,19 +79,19 @@ class AnyDoAPITests(unittest.TestCase):
     @patch('requests.adapters.HTTPAdapter.send')
     def test_create_category(self, m):
         id = utils.create_uuid()
-        r = self.api.create_category(name="ANY.DO_TEST_CATEGORY",
+        r = self.api.create_category("ANY.DO_TEST_CATEGORY",
+                                     id,
                                      default="false",
-                                     isDefault="false",
-                                     listPosition="null",
-                                     id=id)
+                                     is_default="false",
+                                     list_position="null")
         r.status_code = 201
         m.return_value = r
         self.assertEqual(r.status_code, 201)
 
-    def test_create_task(self):
-        categories = self.api.categories(responseType="flat",
-                                         includeDeleted="false",
-                                         includeDone="false")
+    @patch('requests.adapters.HTTPAdapter.send')
+    def test_create_task(self, m):
+        categories = self.api.get_all_categories(include_delete="false",
+                                                 include_done="false")
         if categories.status_code == 200 and categories.json():
             category_id = categories.json()[0].get("id")
             task_id = utils.create_uuid()
@@ -112,11 +110,11 @@ class AnyDoAPITests(unittest.TestCase):
                                      id=task_id)
             self.assertEqual(r.status_code, 200)
 
-    def test_create_note(self):
+    @patch('requests.adapters.HTTPAdapter.send')
+    def test_create_note(self, m):
         # Fetch available categories
-        categories = self.api.categories(responseType="flat",
-                                         includeDeleted="false",
-                                         includeDone="false")
+        categories = self.api.get_all_categories(include_delete="false",
+                                                 include_done="false")
         if categories.status_code == 200 and categories.json():
             category_id = categories.json()[0].get("id")
             task_id = utils.create_uuid()

@@ -7,7 +7,7 @@ class AnyDoClientError(Exception):
         return self.msg
 
 
-class AnyDoAPIError(Exception):
+class AnyDoClientError(Exception):
     def __init__(self, code, msg):
         self.code = code
         self.msg = msg

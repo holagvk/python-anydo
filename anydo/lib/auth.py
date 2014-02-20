@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import requests
-from anydo import settings
+from anydo.lib import settings
 
 
 class AnyDoSession(object):
@@ -16,10 +16,13 @@ class AnyDoSession(object):
                           )
 
     def get(self, url, **kwargs):
-        return self.session.get(url, proxies=settings.PROXIES, **kwargs)
+        return self.session.get(url, proxies=settings.PROXIES,
+                                verify=False, **kwargs)
 
     def post(self, url, data=None, **kwargs):
-        return self.session.post(url, data, proxies=settings.PROXIES, **kwargs)
+        return self.session.post(url, data, proxies=settings.PROXIES,
+                                 verify=False, **kwargs)
 
     def delete(self, url, **kwargs):
-        return self.session.delete(url, proxies=settings.PROXIES, **kwargs)
+        return self.session.delete(url, proxies=settings.PROXIES,
+                                   verify=False, **kwargs)
