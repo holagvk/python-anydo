@@ -1,0 +1,4 @@
+requests
+pep8
+mock
+pytest
