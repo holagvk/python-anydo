@@ -1,4 +1,4 @@
-from lib.client import AnyDoClient
+from anydo.lib.client import AnyDoClient
 
 
 class AnyDoAPI():
@@ -14,9 +14,19 @@ class AnyDoAPI():
                                  "true" if include_done else "false").json()
 
     def get_all_categories(self, include_delete=False, include_done=False):
-        return self.client.categories("flat",
-                                      "true" if include_delete else "false",
-                                      "true" if include_done else "false").json()
+        return self.client.categories(
+            "flat",
+            "true" if include_delete else "false",
+            "true" if include_done else "false").json()
 
     def get_task_by_id(self, task_id):
         return self.client.task(task_id).json()
+
+    def create_category(self, name, category_id, default=False,
+                        is_default=False, list_position=None):
+        return self.client.create_category(
+            name,
+            "true" if default else "false",
+            "true" if is_default else "false",
+            list_position if list_position else "null",
+            category_id)
