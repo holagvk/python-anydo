@@ -5,25 +5,25 @@ import sys
 import time
 import os.path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from anydo.client import AnyDoAPI
-from anydo import settings
-from anydo import utils
+from anydo.lib.bind import AnyDoAPIBinder
+from anydo.lib import settings
+from anydo.lib import utils
 
 
-class TestAnyDoAPI(AnyDoAPI):
+class TestAnyDoAPIBinder(AnyDoAPIBinder):
     def __getattribute__(self, attr):
-        val = super(TestAnyDoAPI, self).__getattribute__(attr)
+        val = super(TestAnyDoAPIBinder, self).__getattribute__(attr)
         return val
 
 
-class AnyDoAPITests(unittest.TestCase):
+class AnyDoAPIBinderTests(unittest.TestCase):
     setup_done = False  # #TODO: setUpClass ?
 
     def setUp(self):
         if not self.setup_done:
-            super(AnyDoAPITests, self).setUp()
-            self.__class__.api = TestAnyDoAPI(username=settings.USERNAME,
-                                              password=settings.PASSWORD)
+            super(AnyDoAPIBinderTests, self).setUp()
+            self.__class__.api = TestAnyDoAPIBinder(username=settings.USERNAME,
+                                                    password=settings.PASSWORD)
             self.__class__.setup_done = True
 
     @patch('requests.adapters.HTTPAdapter.send')

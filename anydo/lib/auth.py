@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import requests
-from anydo import settings
+from anydo.lib import settings
 
 
 class AnyDoSession(object):
