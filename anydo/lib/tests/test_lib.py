@@ -101,7 +101,7 @@ class AnyDoAPIBinderTests(unittest.TestCase):
                                  priority="Normal",
                                  creationDate=str(int(time.time())),
                                  taskExpanded="false",
-                                 categoryID=str(category_id),
+                                 categoryId=str(category_id),
                                  dueDate=None,
                                  id=task_id)
         r.status_code = 200
@@ -125,7 +125,7 @@ class AnyDoAPIBinderTests(unittest.TestCase):
                                  creationDate=str(int(time.time())),
                                  taskExpanded="false",
                                  parentGlobalTaskId=task_id,
-                                 categoryID=str(category_id),
+                                 categoryId=str(category_id),
                                  dueDate=None,
                                  id=note_id)
         r.status_code = 200
