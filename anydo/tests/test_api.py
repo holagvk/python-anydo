@@ -51,32 +51,29 @@ class AnyDoAPITests(unittest.TestCase):
         m.return_value = r
         self.assertEqual(r.status_code, 200)
 
-    def test_task(self):
-        tasks = self.api.tasks(responseType="flat",
-                               includeDeleted="false",
-                               includeDone="false")
-        if tasks.status_code == 200 and tasks.json():
-            task_id = tasks.json()[0].get("id")
-            r = self.api.task(uuid=task_id)
-            self.assertEqual(r.status_code, 200)
+    @patch('requests.adapters.HTTPAdapter.send')
+    def test_task(self, m):
+        task_id = utils.create_uuid()
+        r = self.api.task(uuid=task_id)
+        r.status_code = 200
+        m.return_value = r
+        self.assertEqual(r.status_code, 200)
 
-    def test_delete_task(self):
-        tasks = self.api.tasks(responseType="flat",
-                               includeDeleted="false",
-                               includeDone="false")
-        if tasks.status_code == 200 and tasks.json():
-            task_id = tasks.json()[0].get("id")
-            r = self.api.delete_task(uuid=task_id)
-            self.assertEqual(r.status_code, 204)
+    @patch('requests.adapters.HTTPAdapter.send')
+    def test_delete_task(self, m):
+        task_id = utils.create_uuid()
+        r = self.api.delete_task(uuid=task_id)
+        r.status_code = 204
+        m.return_value = r
+        self.assertEqual(r.status_code, 204)
 
-    def test_delete_category(self):
-        categories = self.api.categories(responseType="flat",
-                                         includeDeleted="false",
-                                         includeDone="false")
-        if categories.status_code == 200 and categories.json():
-            category_id = categories.json()[0].get("id")
-            r = self.api.delete_category(uuid=category_id)
-            self.assertEqual(r.status_code, 204)
+    @patch('requests.adapters.HTTPAdapter.send')
+    def test_delete_category(self, m):
+        category_id = utils.create_uuid()
+        r = self.api.delete_category(uuid=category_id)
+        r.status_code = 204
+        m.return_value = r
+        self.assertEqual(r.status_code, 204)
 
     @patch('requests.adapters.HTTPAdapter.send')
     def test_create_category(self, m):
@@ -90,68 +87,50 @@ class AnyDoAPITests(unittest.TestCase):
         m.return_value = r
         self.assertEqual(r.status_code, 201)
 
-    def test_create_task(self):
-        categories = self.api.categories(responseType="flat",
-                                         includeDeleted="false",
-                                         includeDone="false")
-        if categories.status_code == 200 and categories.json():
-            category_id = categories.json()[0].get("id")
-            task_id = utils.create_uuid()
-            r = self.api.create_task(title="ANY.DO_TEST_TASK",
-                                     listPositionByCategory=0,
-                                     listPositionByPriority=0,
-                                     listPositionByDueDate=0,
-                                     status="UNCHECKED",
-                                     repeatingMethod="TASK_REPEAT_OFF",
-                                     shared="false",
-                                     priority="Normal",
-                                     creationDate=str(int(time.time())),
-                                     taskExpanded="false",
-                                     categoryID=str(category_id),
-                                     dueDate=None,
-                                     id=task_id)
-            self.assertEqual(r.status_code, 200)
+    @patch('requests.adapters.HTTPAdapter.send')
+    def test_create_task(self, m):
+        category_id = utils.create_uuid()
+        task_id = utils.create_uuid()
+        r = self.api.create_task(title="ANY.DO_TEST_TASK",
+                                 listPositionByCategory=0,
+                                 listPositionByPriority=0,
+                                 listPositionByDueDate=0,
+                                 status="UNCHECKED",
+                                 repeatingMethod="TASK_REPEAT_OFF",
+                                 shared="false",
+                                 priority="Normal",
+                                 creationDate=str(int(time.time())),
+                                 taskExpanded="false",
+                                 categoryID=str(category_id),
+                                 dueDate=None,
+                                 id=task_id)
+        r.status_code = 200
+        m.return_value = r
+        self.assertEqual(r.status_code, 200)
 
-    def test_create_note(self):
-        # Fetch available categories
-        categories = self.api.categories(responseType="flat",
-                                         includeDeleted="false",
-                                         includeDone="false")
-        if categories.status_code == 200 and categories.json():
-            category_id = categories.json()[0].get("id")
-            task_id = utils.create_uuid()
-            # Create task
-            new_task = self.api.create_task(title="ANY.DO.TEST_TASK_NOTE",
-                                            listPositionByCategory=0,
-                                            listPositionByPriority=0,
-                                            listPositionByDueDate=0,
-                                            status="UNCHECKED",
-                                            repeatingMethod="TASK_REPEAT_OFF",
-                                            shared="false",
-                                            priority="Normal",
-                                            creationDate=str(int(time.time())),
-                                            taskExpanded="false",
-                                            categoryID=str(category_id),
-                                            dueDate=None,
-                                            id=task_id)
-            if new_task.status_code == 200 and new_task.json():
-                note_id = utils.create_uuid()
-                # Add note in task
-                r = self.api.create_task(title="ANY.DO_TEST_NOTE",
-                                         listPositionByCategory=0,
-                                         listPositionByPriority=0,
-                                         listPositionByDueDate=0,
-                                         status="UNCHECKED",
-                                         repeatingMethod="TASK_REPEAT_OFF",
-                                         shared="false",
-                                         priority="Normal",
-                                         creationDate=str(int(time.time())),
-                                         taskExpanded="false",
-                                         parentGlobalTaskId=task_id,
-                                         categoryID=str(category_id),
-                                         dueDate=None,
-                                         id=note_id)
-                self.assertEqual(r.status_code, 200)
+    @patch('requests.adapters.HTTPAdapter.send')
+    def test_create_note(self, m):
+        task_id = utils.create_uuid()
+        category_id = utils.create_uuid()
+        note_id = utils.create_uuid()
+        # Add note in task
+        r = self.api.create_task(title="ANY.DO_TEST_NOTE",
+                                 listPositionByCategory=0,
+                                 listPositionByPriority=0,
+                                 listPositionByDueDate=0,
+                                 status="UNCHECKED",
+                                 repeatingMethod="TASK_REPEAT_OFF",
+                                 shared="false",
+                                 priority="Normal",
+                                 creationDate=str(int(time.time())),
+                                 taskExpanded="false",
+                                 parentGlobalTaskId=task_id,
+                                 categoryID=str(category_id),
+                                 dueDate=None,
+                                 id=note_id)
+        r.status_code = 200
+        m.return_value = r
+        self.assertEqual(r.status_code, 200)
 
 if __name__ == '__main__':
     unittest.main()
