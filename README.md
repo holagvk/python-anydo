@@ -7,22 +7,70 @@ Unofficial python bindings for Any.Do
 
 Usage Guide
 -----------------
-............TODO
+Authenticate to Any.Do and create AnyDoAPI object
+```python
+from anydo.api import AnyDoAPI
+api = AnyDoAPI(username='username@example.org', password='password')
+```
 
+**Get User Information**
+```python
+api.get_user_info()
+```
+
+**Get All Tasks (including Notes)**
+```python
+api.get_all_tasks()
+```
+
+**Get Task/Note by ID**
+```python
+api.get_task_by_id()
+```
+
+**Delete Task/Note by ID**
+```python
+api.delete_task_by_id()
+```
+
+**Get All Categories**
+```python
+api.get_all_categories()
+```
+
+**Delete Category by ID**
+```python
+api.delete_category_by_id()
+```
+
+**Create new category**
+```python
+api.create_new_category()
+```
+
+**Create quick task (Today)**
+```python
+api.create_today_task()
+```
+
+**Create quick task (Someday)**
+```python
+api.create_someday_task()
+```
 
 Developing python-anydo
 --------------------------------------------
 You should add bin/runtest.sh as pre-commit git-hook.
 It will help you in verifying your changes locally.
-````bash
+```bash
 $ git clone https://github.com/gvkalra/python-anydo.git
 $ cd python-anydo
 $ cp bin/runtest.sh .git/hooks/pre-commit
-````
+```
 
 License
 -----------------
-````text
+```text
 The MIT License (MIT)
 
 Copyright (c) 2014 Gaurav Kalra
@@ -44,7 +92,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-````
+```
 
 Authors
 -----------------
