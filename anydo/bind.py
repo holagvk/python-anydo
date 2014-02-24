@@ -67,6 +67,12 @@ def bind_method(**config):
                                      headers={'Content-Type':
                                               'application/json'}
                                      )
+            if self.method == 'PUT':
+                return self.api.put(self.api.host + self.path,
+                                    data=str(json.dumps(self.parameters)),
+                                    headers={'Content-Type':
+                                             'application/json'}
+                                    )
 
     def _call(self, *args, **kwargs):
         #self=AnyDoAPI(); satisfy pychecker
