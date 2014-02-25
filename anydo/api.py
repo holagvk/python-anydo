@@ -55,6 +55,8 @@ class AnyDoAPI(object):
             raise AnyDoAPIError(421, "HTTP Error %d" % r.status_code)
 
     def delete_category_by_id(self, category_id):
+        if category_id == self.def_category_id:
+            raise AnyDoAPIError(422, "Invalid Operation")
         r = self.api.delete_category(uuid=category_id)
         if r.status_code != 204:
             raise AnyDoAPIError(421, "HTTP Error %d" % r.status_code)
