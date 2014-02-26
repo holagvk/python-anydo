@@ -74,40 +74,24 @@ class AnyDoAPI(object):
         except ValueError:
             raise AnyDoAPIError(420, "JSON Decoding Error")
 
-    def create_someday_task(self, task_title):
-        r = self.api.create_task(task_title,
-                                 listPositionByCategory=0,
-                                 listPositionByPriority=0,
-                                 listPositionByDueDate=0,
-                                 status="UNCHECKED",
-                                 repeatingMethod="TASK_REPEAT_OFF",
-                                 shared="false",
-                                 priority="Normal",
-                                 creationDate=int(time.time()),
-                                 taskExpanded=False,
-                                 categoryId=self.def_category_id,
-                                 dueDate=None,
-                                 id=create_uuid())
+    def create_new_task(self, task_title, due_day='someday'):
         try:
+            r = self.api.create_task(task_title,
+                                     listPositionByCategory=0,
+                                     listPositionByPriority=0,
+                                     listPositionByDueDate=0,
+                                     status="UNCHECKED",
+                                     repeatingMethod="TASK_REPEAT_OFF",
+                                     shared="false",
+                                     priority="Normal",
+                                     creationDate=int(time.time()),
+                                     taskExpanded=False,
+                                     categoryId=self.def_category_id,
+                                     dueDate={'someday': None,
+                                              'today': 0}[due_day],
+                                     id=create_uuid())
             return r.json()
         except ValueError:
             raise AnyDoAPIError(420, "JSON Decoding Error")
-
-    def create_today_task(self, task_title):
-        r = self.api.create_task(task_title,
-                                 listPositionByCategory=0,
-                                 listPositionByPriority=0,
-                                 listPositionByDueDate=0,
-                                 status="UNCHECKED",
-                                 repeatingMethod="TASK_REPEAT_OFF",
-                                 shared="false",
-                                 priority="Normal",
-                                 creationDate=int(time.time()),
-                                 taskExpanded=False,
-                                 categoryId=self.def_category_id,
-                                 dueDate=0,
-                                 id=create_uuid())
-        try:
-            return r.json()
-        except ValueError:
-            raise AnyDoAPIError(420, "JSON Decoding Error")
+        except KeyError:
+            raise AnyDoAPIError(422, "Invalid Operation")

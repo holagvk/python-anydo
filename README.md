@@ -48,14 +48,9 @@ api.delete_category_by_id()
 api.create_new_category()
 ```
 
-**Create quick task (Today)**
+**Create new task**
 ```python
-api.create_today_task()
-```
-
-**Create quick task (Someday)**
-```python
-api.create_someday_task()
+api.create_new_task()
 ```
 
 Developing python-anydo
