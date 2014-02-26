@@ -6,7 +6,7 @@ import time
 
 
 class AnyDoAPI(object):
-    def __init__(self, username=None, password=None, auth_token=None):
+    def __init__(self, username=None, password=None):
         self.api = AnyDoAPIBinder(username, password)
         self.owner_id = self.get_user_info().get('id')
         self.def_category_id = [value for key, value in
