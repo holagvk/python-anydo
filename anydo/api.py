@@ -14,6 +14,30 @@ class AnyDoAPI(object):
                                 if value['isDefault'] is True][0].get('id')
 
     def get_user_info(self):
+        """ Fetches user information
+
+            Retrieves information of currently authenticated user
+
+            Args:
+                None
+
+            Returns:
+                A dictionary of following user information:
+                {'anonymous': Boolean,
+                'creationDate': Number,
+                'email': String,
+                'emails': Array,
+                'facebookAccessToken': String,
+                'facebookId': String,
+                'fake': Boolean,
+                'id': String,
+                'name': String,
+                'phoneNumbers': Array}
+
+            Raises:
+                AnyDoAPIError:
+                    Code(420): JSON Decoding Error.
+        """
         r = self.api.user_info()
         try:
             return r.json()
