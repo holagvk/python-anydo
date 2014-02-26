@@ -4,6 +4,7 @@ python-anydo
 Unofficial python bindings for Any.Do
 
 [![Build Status](https://travis-ci.org/gvkalra/python-anydo.png?branch=master)](https://travis-ci.org/gvkalra/python-anydo)
+[![Coverage Status](https://coveralls.io/repos/gvkalra/python-anydo/badge.png?branch=master)](https://coveralls.io/r/gvkalra/python-anydo?branch=master)
 
 Usage Guide
 -----------------
