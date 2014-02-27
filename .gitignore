@@ -35,4 +35,6 @@ nosetests.xml
 # Linux
 .*
 !.gitignore
+!.pylint.rc
+!.travis.yml
 *~
