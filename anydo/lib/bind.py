@@ -4,7 +4,7 @@ from anydo.lib.error import AnyDoAPIBinderError
 from anydo.lib.auth import AnyDoSession
 import re
 import json
-path_template = re.compile("{\w+}")  # #To support {variable} in paths
+PATH_TEMPLATE = re.compile(r"{\w+}")  # #To support {variable} in paths
 
 
 def bind_method(**config):
@@ -45,7 +45,7 @@ def bind_method(**config):
                 self.parameters[key] = encode_string(value)
 
         def _build_path(self):
-            for var in path_template.findall(self.path):
+            for var in PATH_TEMPLATE.findall(self.path):
                 name = var.strip("{}")
 
                 try:
@@ -93,15 +93,11 @@ class AnyDoAPIBinder(AnyDoSession):
         super(AnyDoAPIBinder, self).__init__(username=username,
                                              password=password)
 
-    """
-    Fetches user information
-    """
+    #Fetches user information
     user_info = bind_method(path="/me",
                             method="GET")
 
-    """
-    Fetches tasks (including notes)
-    """
+    #Fetches tasks (including notes)
     tasks = bind_method(path="/me/tasks",
                         method="GET",
                         accepts_parameters=["responseType",
@@ -110,9 +106,7 @@ class AnyDoAPIBinder(AnyDoSession):
                                             ]
                         )
 
-    """
-    Fetches categories
-    """
+    #Fetches categories
     categories = bind_method(path="/me/categories",
                              method="GET",
                              accepts_parameters=["responseType",
@@ -121,31 +115,23 @@ class AnyDoAPIBinder(AnyDoSession):
                                                  ]
                              )
 
-    """
-    Fetches task/note by UUID
-    """
+    #Fetches task/note by UUID
     task = bind_method(path="/me/tasks/{uuid}",
                        method="GET",
                        accepts_parameters=["uuid"]
                        )
 
-    """
-    Deletes a task/note by UUID
-    """
+    #Deletes a task/note by UUID
     delete_task = bind_method(path="/me/tasks/{uuid}",
                               method="DELETE",
                               accepts_parameters=["uuid"])
 
-    """
-    Deletes a category by UUID
-    """
+    #Deletes a category by UUID
     delete_category = bind_method(path="/me/categories/{uuid}",
                                   method="DELETE",
                                   accepts_parameters=["uuid"])
 
-    """
-    Creates a new category
-    """
+    #Creates a new category
     create_category = bind_method(path="/me/categories",
                                   method="POST",
                                   accepts_parameters=["name",
@@ -154,9 +140,7 @@ class AnyDoAPIBinder(AnyDoSession):
                                                       "listPosition",
                                                       "id"])
 
-    """
-    Creates a new task/note
-    """
+    #Creates a new task/note
     create_task = bind_method(path="/me/tasks",
                               method="POST",
                               accepts_parameters=["title",

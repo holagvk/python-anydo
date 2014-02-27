@@ -27,110 +27,110 @@ class AnyDoAPIBinderTests(unittest.TestCase):
             self.__class__.setup_done = True
 
     @patch('requests.adapters.HTTPAdapter.send')
-    def test_user_info(self, m):
-        r = self.api.user_info()
-        r.status_code = 200
-        m.return_value = r
-        self.assertEqual(r.status_code, 200)
+    def test_user_info(self, mock_class):
+        ret = self.api.user_info()
+        ret.status_code = 200
+        mock_class.return_value = ret
+        self.assertEqual(ret.status_code, 200)
 
     @patch('requests.adapters.HTTPAdapter.send')
-    def test_tasks(self, m):
-        r = self.api.tasks(responseType="flat",
-                           includeDeleted="false",
-                           includeDone="false")
-        r.status_code = 200
-        m.return_value = r
-        self.assertEqual(r.status_code, 200)
+    def test_tasks(self, mock_class):
+        ret = self.api.tasks(responseType="flat",
+                             includeDeleted="false",
+                             includeDone="false")
+        ret.status_code = 200
+        mock_class.return_value = ret
+        self.assertEqual(ret.status_code, 200)
 
     @patch('requests.adapters.HTTPAdapter.send')
-    def test_categories(self, m):
-        r = self.api.categories(responseType="flat",
-                                includeDeleted="false",
-                                includeDone="false")
-        r.status_code = 200
-        m.return_value = r
-        self.assertEqual(r.status_code, 200)
+    def test_categories(self, mock_class):
+        ret = self.api.categories(responseType="flat",
+                                  includeDeleted="false",
+                                  includeDone="false")
+        ret.status_code = 200
+        mock_class.return_value = ret
+        self.assertEqual(ret.status_code, 200)
 
     @patch('requests.adapters.HTTPAdapter.send')
-    def test_task(self, m):
+    def test_task(self, mock_class):
         task_id = utils.create_uuid()
-        r = self.api.task(uuid=task_id)
-        r.status_code = 200
-        m.return_value = r
-        self.assertEqual(r.status_code, 200)
+        ret = self.api.task(uuid=task_id)
+        ret.status_code = 200
+        mock_class.return_value = ret
+        self.assertEqual(ret.status_code, 200)
 
     @patch('requests.adapters.HTTPAdapter.send')
-    def test_delete_task(self, m):
+    def test_delete_task(self, mock_class):
         task_id = utils.create_uuid()
-        r = self.api.delete_task(uuid=task_id)
-        r.status_code = 204
-        m.return_value = r
-        self.assertEqual(r.status_code, 204)
+        ret = self.api.delete_task(uuid=task_id)
+        ret.status_code = 204
+        mock_class.return_value = ret
+        self.assertEqual(ret.status_code, 204)
 
     @patch('requests.adapters.HTTPAdapter.send')
-    def test_delete_category(self, m):
+    def test_delete_category(self, mock_class):
         category_id = utils.create_uuid()
-        r = self.api.delete_category(uuid=category_id)
-        r.status_code = 204
-        m.return_value = r
-        self.assertEqual(r.status_code, 204)
+        ret = self.api.delete_category(uuid=category_id)
+        ret.status_code = 204
+        mock_class.return_value = ret
+        self.assertEqual(ret.status_code, 204)
 
     @patch('requests.adapters.HTTPAdapter.send')
-    def test_create_category(self, m):
-        id = utils.create_uuid()
-        r = self.api.create_category(name="ANY.DO_TEST_CATEGORY",
-                                     default="false",
-                                     isDefault="false",
-                                     listPosition="null",
-                                     id=id)
-        r.status_code = 201
-        m.return_value = r
-        self.assertEqual(r.status_code, 201)
+    def test_create_category(self, mock_class):
+        category_id = utils.create_uuid()
+        ret = self.api.create_category(name="ANY.DO_TEST_CATEGORY",
+                                       default="false",
+                                       isDefault="false",
+                                       listPosition="null",
+                                       id=category_id)
+        ret.status_code = 201
+        mock_class.return_value = ret
+        self.assertEqual(ret.status_code, 201)
 
     @patch('requests.adapters.HTTPAdapter.send')
-    def test_create_task(self, m):
+    def test_create_task(self, mock_class):
         category_id = utils.create_uuid()
         task_id = utils.create_uuid()
-        r = self.api.create_task(title="ANY.DO_TEST_TASK",
-                                 listPositionByCategory=0,
-                                 listPositionByPriority=0,
-                                 listPositionByDueDate=0,
-                                 status="UNCHECKED",
-                                 repeatingMethod="TASK_REPEAT_OFF",
-                                 shared="false",
-                                 priority="Normal",
-                                 creationDate=str(int(time.time())),
-                                 taskExpanded="false",
-                                 categoryId=str(category_id),
-                                 dueDate=None,
-                                 id=task_id)
-        r.status_code = 200
-        m.return_value = r
-        self.assertEqual(r.status_code, 200)
+        ret = self.api.create_task(title="ANY.DO_TEST_TASK",
+                                   listPositionByCategory=0,
+                                   listPositionByPriority=0,
+                                   listPositionByDueDate=0,
+                                   status="UNCHECKED",
+                                   repeatingMethod="TASK_REPEAT_OFF",
+                                   shared="false",
+                                   priority="Normal",
+                                   creationDate=str(int(time.time())),
+                                   taskExpanded="false",
+                                   categoryId=str(category_id),
+                                   dueDate=None,
+                                   id=task_id)
+        ret.status_code = 200
+        mock_class.return_value = ret
+        self.assertEqual(ret.status_code, 200)
 
     @patch('requests.adapters.HTTPAdapter.send')
-    def test_create_note(self, m):
+    def test_create_note(self, mock_class):
         task_id = utils.create_uuid()
         category_id = utils.create_uuid()
         note_id = utils.create_uuid()
         # Add note in task
-        r = self.api.create_task(title="ANY.DO_TEST_NOTE",
-                                 listPositionByCategory=0,
-                                 listPositionByPriority=0,
-                                 listPositionByDueDate=0,
-                                 status="UNCHECKED",
-                                 repeatingMethod="TASK_REPEAT_OFF",
-                                 shared="false",
-                                 priority="Normal",
-                                 creationDate=str(int(time.time())),
-                                 taskExpanded="false",
-                                 parentGlobalTaskId=task_id,
-                                 categoryId=str(category_id),
-                                 dueDate=None,
-                                 id=note_id)
-        r.status_code = 200
-        m.return_value = r
-        self.assertEqual(r.status_code, 200)
+        ret = self.api.create_task(title="ANY.DO_TEST_NOTE",
+                                   listPositionByCategory=0,
+                                   listPositionByPriority=0,
+                                   listPositionByDueDate=0,
+                                   status="UNCHECKED",
+                                   repeatingMethod="TASK_REPEAT_OFF",
+                                   shared="false",
+                                   priority="Normal",
+                                   creationDate=str(int(time.time())),
+                                   taskExpanded="false",
+                                   parentGlobalTaskId=task_id,
+                                   categoryId=str(category_id),
+                                   dueDate=None,
+                                   id=note_id)
+        ret.status_code = 200
+        mock_class.return_value = ret
+        self.assertEqual(ret.status_code, 200)
 
 if __name__ == '__main__':
     unittest.main()

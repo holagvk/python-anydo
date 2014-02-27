@@ -14,7 +14,7 @@ clean
 if which pip > /dev/null; then
     pip install --upgrade pylint
     pip install --upgrade tox
-    pylint anydo/*.py anydo/lib/*.py anydo/lib/tests/*.py
+    pylint --rcfile=.pylint.rc anydo/*.py anydo/lib/*.py anydo/lib/tests/*.py
     tox
 fi
 

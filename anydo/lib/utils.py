@@ -13,6 +13,6 @@ def encode_string(value):
 
 
 def create_uuid():
-    id = base64.b64encode(uuid.uuid4().bytes)
-    safe_id = id.replace(b"+", b"-").replace(b"/", b"_")
+    unique_id = base64.b64encode(uuid.uuid4().bytes)
+    safe_id = unique_id.replace(b"+", b"-").replace(b"/", b"_")
     return safe_id.decode('utf-8')
