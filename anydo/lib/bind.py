@@ -79,7 +79,7 @@ def bind_method(**config):
                                     )
 
     def _call(self, *args, **kwargs):
-        #self=AnyDoAPIBinder(); satisfy pychecker
+        # self=AnyDoAPIBinder(); satisfy pychecker
         method = AnyDoAPIBinderMethod(self, *args, **kwargs)
         return method.execute()
 
@@ -93,11 +93,11 @@ class AnyDoAPIBinder(AnyDoSession):
         super(AnyDoAPIBinder, self).__init__(username=username,
                                              password=password)
 
-    #Fetches user information
+    # Fetches user information
     user_info = bind_method(path="/me",
                             method="GET")
 
-    #Fetches tasks (including notes)
+    # Fetches tasks (including notes)
     tasks = bind_method(path="/me/tasks",
                         method="GET",
                         accepts_parameters=["responseType",
@@ -106,7 +106,7 @@ class AnyDoAPIBinder(AnyDoSession):
                                             ]
                         )
 
-    #Fetches categories
+    # Fetches categories
     categories = bind_method(path="/me/categories",
                              method="GET",
                              accepts_parameters=["responseType",
@@ -115,23 +115,23 @@ class AnyDoAPIBinder(AnyDoSession):
                                                  ]
                              )
 
-    #Fetches task/note by UUID
+    # Fetches task/note by UUID
     task = bind_method(path="/me/tasks/{uuid}",
                        method="GET",
                        accepts_parameters=["uuid"]
                        )
 
-    #Deletes a task/note by UUID
+    # Deletes a task/note by UUID
     delete_task = bind_method(path="/me/tasks/{uuid}",
                               method="DELETE",
                               accepts_parameters=["uuid"])
 
-    #Deletes a category by UUID
+    # Deletes a category by UUID
     delete_category = bind_method(path="/me/categories/{uuid}",
                                   method="DELETE",
                                   accepts_parameters=["uuid"])
 
-    #Creates a new category
+    # Creates a new category
     create_category = bind_method(path="/me/categories",
                                   method="POST",
                                   accepts_parameters=["name",
@@ -140,7 +140,7 @@ class AnyDoAPIBinder(AnyDoSession):
                                                       "listPosition",
                                                       "id"])
 
-    #Creates a new task/note
+    # Creates a new task/note
     create_task = bind_method(path="/me/tasks",
                               method="POST",
                               accepts_parameters=["title",

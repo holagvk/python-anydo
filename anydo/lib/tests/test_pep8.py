@@ -67,7 +67,7 @@ class Pep8Tests(unittest.TestCase):
         if report.total_errors:
             if options.count:
                 sys.stderr.write(str(report.total_errors) + '\n')
-            #sys.exit(1)
+            # sys.exit(1)
 
         # reporting errors (additional summary)
         errors = report.get_count('E')
