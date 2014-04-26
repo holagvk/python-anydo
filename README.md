@@ -1,10 +1,16 @@
 python-anydo
 ============
 
-Unofficial python bindings for Any.Do
+Unofficial python bindings for Any.Do, an attractive todo list organizer.
 
 [![Build Status](https://travis-ci.org/gvkalra/python-anydo.png?branch=master)](https://travis-ci.org/gvkalra/python-anydo)
 [![Coverage Status](https://coveralls.io/repos/gvkalra/python-anydo/badge.png?branch=master)](https://coveralls.io/r/gvkalra/python-anydo?branch=master)
+
+The bindings cooperate with the official applications available viz:
+
+[![Google Play](http://www.any.do/images/download-badges/40px/googleplay.png)](https://play.google.com/store/apps/details?id=com.anydo)
+[![App Store](http://www.any.do/images/download-badges/40px/appstore.png)](https://itunes.apple.com/us/app/any.do/id497328576?ls=1&mt=8)
+[![Chrome Web Store](http://www.any.do/images/download-badges/40px/chromewebstore.png)](https://chrome.google.com/webstore/detail/anydo/kdadialhpiikehpdeejjeiikopddkjem)
 
 Usage Guide
 -----------------
