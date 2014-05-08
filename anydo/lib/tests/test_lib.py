@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 from mock import patch
-import sys
 import time
-import os.path
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from anydo.lib.bind import AnyDoAPIBinder
 from anydo.lib import settings
 from anydo.lib import utils
@@ -131,6 +128,3 @@ class AnyDoAPIBinderTests(unittest.TestCase):
         ret.status_code = 200
         mock_class.return_value = ret
         self.assertEqual(ret.status_code, 200)
-
-if __name__ == '__main__':
-    unittest.main()
