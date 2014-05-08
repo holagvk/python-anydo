@@ -25,16 +25,15 @@ class AnyDoAPITests(unittest.TestCase):
             HTTPretty.GET,
             '%s/me' % AnyDoAPIBinder.host,
             body='{"dummy_key": "dummy_value"}')
-        self.assertDictEqual({'dummy_key': 'dummy_value'},
-                             self.conn.get_user_info())
+        self.assertEqual({'dummy_key': 'dummy_value'},
+                         self.conn.get_user_info())
 
     @httprettified
     def test_get_user_info_fail(self):
         HTTPretty.register_uri(
             HTTPretty.GET,
             '%s/me' % AnyDoAPIBinder.host)
-        with self.assertRaises(AnyDoAPIError):
-            self.conn.get_user_info()
+        self.assertRaises(AnyDoAPIError, self.conn.get_user_info)
 
     @httprettified
     def test_get_all_tasks(self):
@@ -42,16 +41,15 @@ class AnyDoAPITests(unittest.TestCase):
             HTTPretty.GET,
             '%s/me/tasks' % AnyDoAPIBinder.host,
             body='{"dummy_key": "dummy_value"}')
-        self.assertDictEqual({"dummy_key": "dummy_value"},
-                             self.conn.get_all_tasks())
+        self.assertEqual({"dummy_key": "dummy_value"},
+                         self.conn.get_all_tasks())
 
     @httprettified
     def test_get_all_tasks_fail(self):
         HTTPretty.register_uri(
             HTTPretty.GET,
             '%s/me/tasks' % AnyDoAPIBinder.host)
-        with self.assertRaises(AnyDoAPIError):
-            self.conn.get_all_tasks()
+        self.assertRaises(AnyDoAPIError, self.conn.get_all_tasks)
 
     @httprettified
     def test_get_all_categories(self):
@@ -59,16 +57,15 @@ class AnyDoAPITests(unittest.TestCase):
             HTTPretty.GET,
             '%s/me/categories' % AnyDoAPIBinder.host,
             body='{"dummy_key": "dummy_value"}')
-        self.assertDictEqual({"dummy_key": "dummy_value"},
-                             self.conn.get_all_categories())
+        self.assertEqual({"dummy_key": "dummy_value"},
+                         self.conn.get_all_categories())
 
     @httprettified
     def test_get_all_categories_fail(self):
         HTTPretty.register_uri(
             HTTPretty.GET,
             '%s/me/categories' % AnyDoAPIBinder.host)
-        with self.assertRaises(AnyDoAPIError):
-            self.conn.get_all_categories()
+        self.assertRaises(AnyDoAPIError, self.conn.get_all_categories)
 
     @httprettified
     def test_get_task_by_id(self):
@@ -77,8 +74,8 @@ class AnyDoAPITests(unittest.TestCase):
             HTTPretty.GET,
             '%s/me/tasks/%s' % (AnyDoAPIBinder.host, uuid),
             body='{"dummy_key": "dummy_value"}')
-        self.assertDictEqual({"dummy_key": "dummy_value"},
-                             self.conn.get_task_by_id(uuid))
+        self.assertEqual({"dummy_key": "dummy_value"},
+                         self.conn.get_task_by_id(uuid))
 
     @httprettified
     def test_get_task_by_id_fail(self):
@@ -86,8 +83,7 @@ class AnyDoAPITests(unittest.TestCase):
         HTTPretty.register_uri(
             HTTPretty.GET,
             '%s/me/tasks/%s' % (AnyDoAPIBinder.host, uuid))
-        with self.assertRaises(AnyDoAPIError):
-            self.conn.get_task_by_id(uuid)
+        self.assertRaises(AnyDoAPIError, self.conn.get_task_by_id, uuid)
 
     @httprettified
     def test_delete_task_by_id(self):
@@ -106,8 +102,7 @@ class AnyDoAPITests(unittest.TestCase):
             HTTPretty.DELETE,
             '%s/me/tasks/%s' % (AnyDoAPIBinder.host, uuid),
             status=503)
-        with self.assertRaises(AnyDoAPIError):
-            self.conn.delete_task_by_id(uuid)
+        self.assertRaises(AnyDoAPIError, self.conn.delete_task_by_id, uuid)
 
     @httprettified
     def test_delete_category_by_id(self):
@@ -134,8 +129,7 @@ class AnyDoAPITests(unittest.TestCase):
             HTTPretty.DELETE,
             '%s/me/categories/%s' % (AnyDoAPIBinder.host, uuid),
             status=503)
-        with self.assertRaises(AnyDoAPIError):
-            self.conn.delete_category_by_id(uuid)
+        self.assertRaises(AnyDoAPIError, self.conn.delete_category_by_id, uuid)
 
     @httprettified
     def test_create_new_category(self):
@@ -145,8 +139,8 @@ class AnyDoAPITests(unittest.TestCase):
             '%s/me/categories' % AnyDoAPIBinder.host,
             body='{"dummy_key": "dummy_value"}',
             status=201)
-        self.assertDictEqual({"dummy_key": "dummy_value"},
-                             self.conn.create_new_category(uuid))
+        self.assertEqual({"dummy_key": "dummy_value"},
+                         self.conn.create_new_category(uuid))
 
     @httprettified
     def test_create_new_category_fail(self):
@@ -154,8 +148,7 @@ class AnyDoAPITests(unittest.TestCase):
         HTTPretty.register_uri(
             HTTPretty.POST,
             '%s/me/categories' % AnyDoAPIBinder.host)
-        with self.assertRaises(AnyDoAPIError):
-            self.conn.create_new_category(uuid)
+        self.assertRaises(AnyDoAPIError, self.conn.create_new_category, uuid)
 
     @httprettified
     def test_create_new_task(self):
@@ -170,8 +163,8 @@ class AnyDoAPITests(unittest.TestCase):
             '%s/me/tasks' % AnyDoAPIBinder.host,
             body='{"dummy_key": "dummy_value"}',
             status=201)
-        self.assertDictEqual({"dummy_key": "dummy_value"},
-                             self.conn.create_new_task(uuid))
+        self.assertEqual({"dummy_key": "dummy_value"},
+                         self.conn.create_new_task(uuid))
 
     @httprettified
     def test_create_new_task_fail(self):
@@ -184,5 +177,4 @@ class AnyDoAPITests(unittest.TestCase):
         HTTPretty.register_uri(
             HTTPretty.POST,
             '%s/me/tasks' % AnyDoAPIBinder.host)
-        with self.assertRaises(AnyDoAPIError):
-            self.conn.create_new_task(uuid)
+        self.assertRaises(AnyDoAPIError, self.conn.create_new_task, uuid)
