@@ -8,10 +8,14 @@ import time
 class AnyDoAPI(object):
     def __init__(self, username=None, password=None):
         self.api = AnyDoAPIBinder(username, password)
-        self.owner_id = self.get_user_info().get('id')
-        self.def_category_id = [value for key, value in
-                                enumerate(self.get_all_categories())
-                                if value['isDefault'] is True][0].get('id')
+
+    def owner_id(self):
+        return self.get_user_info().get('id')
+
+    def default_category_id(self):
+        return [value for key, value in
+                enumerate(self.get_all_categories())
+                if value['isDefault'] is True][0].get('id')
 
     def get_user_info(self):
         """ Fetches user information
@@ -79,7 +83,7 @@ class AnyDoAPI(object):
             raise AnyDoAPIError(421, "HTTP Error %d" % ret.status_code)
 
     def delete_category_by_id(self, category_id):
-        if category_id == self.def_category_id:
+        if category_id == self.default_category_id():
             raise AnyDoAPIError(422, "Invalid Operation")
         ret = self.api.delete_category(uuid=category_id)
         if ret.status_code != 204:
@@ -111,7 +115,7 @@ class AnyDoAPI(object):
                                        priority="Normal",
                                        creationDate=int(time.time()),
                                        taskExpanded=False,
-                                       categoryId=self.def_category_id,
+                                       categoryId=self.default_category_id(),
                                        dueDate={'someday': None,
                                                 'today': 0}[due_day],
                                        id=create_uuid())
