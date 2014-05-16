@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+""" anydo.lib.bind """
 from anydo.lib.utils import encode_string
 from anydo.lib.error import AnyDoAPIBinderError
 from anydo.lib.auth import AnyDoSession
@@ -12,6 +13,7 @@ def bind_method(**config):
     Binds Any.Do REST API to AnyDoAPIBinder()
     """
     class AnyDoAPIBinderMethod(object):
+        """ Method class for AnyDoAPIBinder """
         path = config['path']
         method = config['method']
         accepts_parameters = config.get("accepts_parameters", [])
@@ -23,6 +25,10 @@ def bind_method(**config):
             self._build_path()
 
         def _build_parameters(self, *args, **kwargs):
+            """ building parameters sending to API.
+            :param *args:
+            :param **kwargs:
+            """
             for index, value in enumerate(args):
                 if value is None:
                     continue
@@ -45,6 +51,7 @@ def bind_method(**config):
                 self.parameters[key] = encode_string(value)
 
         def _build_path(self):
+            """ building API path. """
             for var in PATH_TEMPLATE.findall(self.path):
                 name = var.strip("{}")
 
@@ -57,6 +64,7 @@ def bind_method(**config):
                 self.path = self.path.replace(var, value)
 
         def execute(self):
+            """ executing API calling. """
             if self.method == 'GET':
                 return self.api.get(self.api.host + self.path,
                                     params=self.parameters)
@@ -69,16 +77,18 @@ def bind_method(**config):
                                      data=str(json.dumps([item
                                                           for item in data])),
                                      headers={'Content-Type':
-                                              'application/json'}
-                                     )
+                                              'application/json'})
             if self.method == 'PUT':
                 return self.api.put(self.api.host + self.path,
                                     data=str(json.dumps(self.parameters)),
                                     headers={'Content-Type':
-                                             'application/json'}
-                                    )
+                                             'application/json'})
 
     def _call(self, *args, **kwargs):
+        """
+        :param *args:
+        :param **kwargs:
+        """
         # self=AnyDoAPIBinder(); satisfy pychecker
         method = AnyDoAPIBinderMethod(self, *args, **kwargs)
         return method.execute()
@@ -87,6 +97,7 @@ def bind_method(**config):
 
 
 class AnyDoAPIBinder(AnyDoSession):
+    """ Binder of AnyDoSession class """
     host = "https://sm-prod.any.do"
 
     def __init__(self, username, password):
@@ -102,24 +113,19 @@ class AnyDoAPIBinder(AnyDoSession):
                         method="GET",
                         accepts_parameters=["responseType",
                                             "includeDeleted",
-                                            "includeDone"
-                                            ]
-                        )
+                                            "includeDone"])
 
     # Fetches categories
     categories = bind_method(path="/me/categories",
                              method="GET",
                              accepts_parameters=["responseType",
                                                  "includeDeleted",
-                                                 "includeDone"
-                                                 ]
-                             )
+                                                 "includeDone"])
 
     # Fetches task/note by UUID
     task = bind_method(path="/me/tasks/{uuid}",
                        method="GET",
-                       accepts_parameters=["uuid"]
-                       )
+                       accepts_parameters=["uuid"])
 
     # Deletes a task/note by UUID
     delete_task = bind_method(path="/me/tasks/{uuid}",
