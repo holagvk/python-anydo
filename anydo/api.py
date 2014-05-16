@@ -59,11 +59,19 @@ class AnyDoAPI(object):
     def get_all_tasks(self, response_type="flat",
                       include_deleted=False,
                       include_done=False):
-        """ retrieve all tasks.
-        Returns: List of all tasks
-        :param response_type: "flat" in default
-        :param include_deleted: False in default
-        :param include_done: False in default
+        """ Retrieve all tasks
+
+            Args:
+                response_type: "flat" in default
+                include_deleted: False in default
+                include_done: False in default
+
+            Returns:
+                A list of all tasks
+
+            Raises:
+                AnyDoAPIError:
+                    Code(420): JSON Decoding Error.
         """
         ret = self.api.tasks(response_type,
                              include_deleted,
@@ -76,11 +84,19 @@ class AnyDoAPI(object):
     def get_all_categories(self, response_type="flat",
                            include_deleted=False,
                            include_done=False):
-        """ retrieve all categories.
-        Returns: List of all categories
-        :param response_type: "flat" in default
-        :param include_deleted: False in default
-        :param include_done: False in default
+        """ Retrieve all categories
+
+            Args:
+                response_type: "flat" in default
+                include_deleted: False in default
+                include_done: False in default
+
+            Returns:
+                A list of all categories
+
+            Raises:
+                AnyDoAPIError:
+                    Code(420): JSON Decoding Error.
         """
         ret = self.api.categories(response_type,
                                   include_deleted,
@@ -91,9 +107,17 @@ class AnyDoAPI(object):
             raise AnyDoAPIError(420, "JSON Decoding Error")
 
     def get_task_by_id(self, task_id):
-        """ retrieve task specified task id.
-        Returns: Dictionary of task
-        :param task_id: task id formatted uuid
+        """ Retrieve a task specified by id
+
+            Args:
+                task_id: task id formatted uuid
+
+            Returns:
+                A dictionary of task
+
+            Raises:
+                AnyDoAPIError:
+                    Code(420): JSON Decoding Error.
         """
         ret = self.api.task(uuid=task_id)
         try:
@@ -102,16 +126,35 @@ class AnyDoAPI(object):
             raise AnyDoAPIError(420, "JSON Decoding Error")
 
     def delete_task_by_id(self, task_id):
-        """ delete task specified task id.
-        :param task_id: task id formatted uuid
+        """ Delete a task specified by id
+
+            Args:
+                task_id: task id formatted uuid
+
+            Returns:
+                None
+
+            Raises:
+                AnyDoAPIError:
+                    Code(421): HTTP Error Code.
         """
         ret = self.api.delete_task(uuid=task_id)
         if ret.status_code != 204:
             raise AnyDoAPIError(421, "HTTP Error %d" % ret.status_code)
 
     def delete_category_by_id(self, category_id):
-        """ delete category specified category id.
-        :param category_id: category id formatted uuid
+        """ Delete a category specified by id
+
+            Args:
+                category_id: category id formatted uuid
+
+            Returns:
+                None
+
+            Raises:
+                AnyDoAPIError:
+                    Code(421): HTTP Error Code.
+                    Code(422): Invalid Operation.
         """
         if category_id == self.default_category_id():
             raise AnyDoAPIError(422, "Invalid Operation")
@@ -122,11 +165,19 @@ class AnyDoAPI(object):
     def create_new_category(self, category_name,
                             default=False,
                             list_position='null'):
-        """ create a new category.
-        Returns: Dictionary of category
-        :param category_name: string of category name
-        :param default: False in default
-        :param list_position: 'null' in default
+        """ Create a new category
+
+            Args:
+                category_name: string of category name
+                default: False in default
+                list_position: 'null' in default
+
+            Returns:
+                A dictionary of category
+
+            Raises:
+                AnyDoAPIError:
+                    Code(420): JSON Decoding Error.
         """
         ret = self.api.create_category(category_name,
                                        default,
@@ -140,10 +191,19 @@ class AnyDoAPI(object):
             raise AnyDoAPIError(420, "JSON Decoding Error")
 
     def create_new_task(self, task_title, due_day='someday'):
-        """ create a new task.
-        Returns: Dictionary of task
-        :param task_title: string of task title
-        :param due_day: 'someday' in default
+        """ Create a new task
+
+            Args:
+                task_title: string of task title
+                due_day: 'someday' in default
+
+            Returns:
+                A dictionary of task
+
+            Raises:
+                AnyDoAPIError:
+                    Code(420): JSON Decoding Error.
+                    Code(422): Invalid Operation
         """
         try:
             ret = self.api.create_task(task_title,
