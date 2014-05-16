@@ -11,13 +11,13 @@ class AnyDoAPI(object):
     def __init__(self, username=None, password=None):
         self.api = AnyDoAPIBinder(username, password)
 
-    def owner_id(self):
+    def __owner_id(self):
         """ Retrieve owner id.
         Returns: owner id of AnyDo task
         """
         return self.get_user_info().get('id')
 
-    def default_category_id(self):
+    def __default_category_id(self):
         """ Retrieve default category id.
         Returns: default category id of AnyDo tasks
         """
@@ -156,7 +156,7 @@ class AnyDoAPI(object):
                     Code(421): HTTP Error Code.
                     Code(422): Invalid Operation.
         """
-        if category_id == self.default_category_id():
+        if category_id == self.__default_category_id():
             raise AnyDoAPIError(422, "Invalid Operation")
         ret = self.api.delete_category(uuid=category_id)
         if ret.status_code != 204:
@@ -216,7 +216,7 @@ class AnyDoAPI(object):
                                        priority="Normal",
                                        creationDate=int(time.time()),
                                        taskExpanded=False,
-                                       categoryId=self.default_category_id(),
+                                       categoryId=self.__default_category_id(),
                                        dueDate={'someday': None,
                                                 'today': 0}[due_day],
                                        id=create_uuid())
