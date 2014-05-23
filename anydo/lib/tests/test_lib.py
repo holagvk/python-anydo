@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+""" anydo.lib.tests.test_lib """
 import unittest
 from httpretty import HTTPretty, httprettified
 import time
@@ -8,12 +9,14 @@ from anydo.lib import utils
 
 
 class TestAnyDoAPIBinder(AnyDoAPIBinder):
+    """ unit test of AnyDoAPIBinder class """
     def __getattribute__(self, attr):
         val = super(TestAnyDoAPIBinder, self).__getattribute__(attr)
         return val
 
 
 class AnyDoAPIBinderTests(unittest.TestCase):
+    """ unit test of AnyDoAPIBind """
     setup_done = False  # #TODO: setUpClass ?
 
     @httprettified
@@ -29,6 +32,7 @@ class AnyDoAPIBinderTests(unittest.TestCase):
 
     @httprettified
     def test_user_info(self):
+        """ unit test of user_info """
         HTTPretty.register_uri(HTTPretty.GET,
                                '%s/me' % AnyDoAPIBinder.host)
         ret = self.api.user_info()
@@ -36,6 +40,7 @@ class AnyDoAPIBinderTests(unittest.TestCase):
 
     @httprettified
     def test_tasks(self):
+        """ unit test of tasks """
         HTTPretty.register_uri(HTTPretty.GET,
                                '%s/me/tasks' % AnyDoAPIBinder.host)
         ret = self.api.tasks(responseType="flat",
@@ -45,6 +50,7 @@ class AnyDoAPIBinderTests(unittest.TestCase):
 
     @httprettified
     def test_categories(self):
+        """ unit test of categories """
         HTTPretty.register_uri(HTTPretty.GET,
                                '%s/me/categories' % AnyDoAPIBinder.host)
         ret = self.api.categories(responseType="flat",
@@ -54,6 +60,7 @@ class AnyDoAPIBinderTests(unittest.TestCase):
 
     @httprettified
     def test_task(self):
+        """ unit test of task """
         task_id = utils.create_uuid()
         HTTPretty.register_uri(HTTPretty.GET,
                                '%s/me/tasks/%s' % (AnyDoAPIBinder.host,
@@ -63,6 +70,7 @@ class AnyDoAPIBinderTests(unittest.TestCase):
 
     @httprettified
     def test_delete_task(self):
+        """ unit test of delete task """
         task_id = utils.create_uuid()
         HTTPretty.register_uri(HTTPretty.DELETE,
                                '%s/me/tasks/%s' % (AnyDoAPIBinder.host,
@@ -73,6 +81,7 @@ class AnyDoAPIBinderTests(unittest.TestCase):
 
     @httprettified
     def test_delete_category(self):
+        """ unit test of delete category """
         category_id = utils.create_uuid()
         HTTPretty.register_uri(HTTPretty.DELETE,
                                '%s/me/categories/%s' % (AnyDoAPIBinder.host,
@@ -83,6 +92,7 @@ class AnyDoAPIBinderTests(unittest.TestCase):
 
     @httprettified
     def test_create_category(self):
+        """ unit test of create category """
         category_id = utils.create_uuid()
         HTTPretty.register_uri(HTTPretty.POST,
                                '%s/me/categories' % AnyDoAPIBinder.host,
@@ -96,6 +106,7 @@ class AnyDoAPIBinderTests(unittest.TestCase):
 
     @httprettified
     def test_create_task(self):
+        """ unit test of create task """
         category_id = utils.create_uuid()
         task_id = utils.create_uuid()
         HTTPretty.register_uri(HTTPretty.POST,
@@ -118,6 +129,7 @@ class AnyDoAPIBinderTests(unittest.TestCase):
 
     @httprettified
     def test_create_note(self):
+        """ unit test of create note """
         task_id = utils.create_uuid()
         category_id = utils.create_uuid()
         note_id = utils.create_uuid()
