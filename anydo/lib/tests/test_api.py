@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+""" anydo.lib.tests.test_api """
 
 import unittest
 from httpretty import HTTPretty, httprettified
@@ -10,6 +11,7 @@ from anydo.lib import utils
 
 
 class AnyDoAPITests(unittest.TestCase):
+    """ unit test of anydo.lib.api """
 
     @httprettified
     def setUp(self):
@@ -21,6 +23,7 @@ class AnyDoAPITests(unittest.TestCase):
 
     @httprettified
     def test_get_user_info(self):
+        """ unit test of get_user_info """
         HTTPretty.register_uri(
             HTTPretty.GET,
             '%s/me' % AnyDoAPIBinder.host,
@@ -30,6 +33,7 @@ class AnyDoAPITests(unittest.TestCase):
 
     @httprettified
     def test_get_user_info_fail(self):
+        """ unit test of get_user_info error case """
         HTTPretty.register_uri(
             HTTPretty.GET,
             '%s/me' % AnyDoAPIBinder.host)
@@ -37,6 +41,7 @@ class AnyDoAPITests(unittest.TestCase):
 
     @httprettified
     def test_get_all_tasks(self):
+        """ unit test of get_all_tasks  """
         HTTPretty.register_uri(
             HTTPretty.GET,
             '%s/me/tasks' % AnyDoAPIBinder.host,
@@ -46,6 +51,7 @@ class AnyDoAPITests(unittest.TestCase):
 
     @httprettified
     def test_get_all_tasks_fail(self):
+        """ unit test of get_all_tasks error case """
         HTTPretty.register_uri(
             HTTPretty.GET,
             '%s/me/tasks' % AnyDoAPIBinder.host)
@@ -53,6 +59,7 @@ class AnyDoAPITests(unittest.TestCase):
 
     @httprettified
     def test_get_all_categories(self):
+        """ unit test of get_all_categories """
         HTTPretty.register_uri(
             HTTPretty.GET,
             '%s/me/categories' % AnyDoAPIBinder.host,
@@ -62,6 +69,7 @@ class AnyDoAPITests(unittest.TestCase):
 
     @httprettified
     def test_get_all_categories_fail(self):
+        """ unit test of get_all_categories error case """
         HTTPretty.register_uri(
             HTTPretty.GET,
             '%s/me/categories' % AnyDoAPIBinder.host)
@@ -69,6 +77,7 @@ class AnyDoAPITests(unittest.TestCase):
 
     @httprettified
     def test_get_task_by_id(self):
+        """ unit test of get_task_by_id """
         uuid = utils.create_uuid()
         HTTPretty.register_uri(
             HTTPretty.GET,
@@ -79,6 +88,7 @@ class AnyDoAPITests(unittest.TestCase):
 
     @httprettified
     def test_get_task_by_id_fail(self):
+        """ unit test of get_task_by_id error case """
         uuid = utils.create_uuid()
         HTTPretty.register_uri(
             HTTPretty.GET,
@@ -87,6 +97,7 @@ class AnyDoAPITests(unittest.TestCase):
 
     @httprettified
     def test_delete_task_by_id(self):
+        """ unit test of delete_task_by_id """
         uuid = utils.create_uuid()
         HTTPretty.register_uri(
             HTTPretty.DELETE,
@@ -97,6 +108,7 @@ class AnyDoAPITests(unittest.TestCase):
 
     @httprettified
     def test_delete_task_by_id_fail(self):
+        """ unit test of delete_task_by_id error case """
         uuid = utils.create_uuid()
         HTTPretty.register_uri(
             HTTPretty.DELETE,
@@ -106,6 +118,7 @@ class AnyDoAPITests(unittest.TestCase):
 
     @httprettified
     def test_delete_category_by_id(self):
+        """ unit test of delete_category_by_id """
         uuid = utils.create_uuid()
         HTTPretty.register_uri(
             HTTPretty.GET,
@@ -120,6 +133,7 @@ class AnyDoAPITests(unittest.TestCase):
 
     @httprettified
     def test_delete_category_by_id_fail(self):
+        """ unit test of delete_category_by_id error case """
         uuid = utils.create_uuid()
         HTTPretty.register_uri(
             HTTPretty.GET,
@@ -133,6 +147,7 @@ class AnyDoAPITests(unittest.TestCase):
 
     @httprettified
     def test_create_new_category(self):
+        """ unit test of create_new_category """
         uuid = utils.create_uuid()
         HTTPretty.register_uri(
             HTTPretty.POST,
@@ -144,6 +159,7 @@ class AnyDoAPITests(unittest.TestCase):
 
     @httprettified
     def test_create_new_category_fail(self):
+        """ unit test of create_new_category error case """
         uuid = utils.create_uuid()
         HTTPretty.register_uri(
             HTTPretty.POST,
@@ -152,6 +168,7 @@ class AnyDoAPITests(unittest.TestCase):
 
     @httprettified
     def test_create_new_task(self):
+        """ unit test of create_new_task """
         uuid = utils.create_uuid()
         HTTPretty.register_uri(
             HTTPretty.GET,
@@ -168,6 +185,7 @@ class AnyDoAPITests(unittest.TestCase):
 
     @httprettified
     def test_create_new_task_fail(self):
+        """ unit test of create_new_task error case """
         uuid = utils.create_uuid()
         HTTPretty.register_uri(
             HTTPretty.GET,
