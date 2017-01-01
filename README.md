@@ -1,3 +1,5 @@
+> :warning: **This repository is not maintained anymore. <br/>If you would like to volunteer as a maintainer, please contact the authors**
+
 python-anydo
 ============
 
