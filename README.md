@@ -1,4 +1,4 @@
-> :warning: **This repository is not maintained anymore. <br/>If you would like to volunteer as a maintainer, please contact the authors**
+:warning: **This repository is not maintained anymore. <br/> Refer [Network](https://github.com/gvkalra/python-anydo/network) for active forks**
 
 python-anydo
 ============
